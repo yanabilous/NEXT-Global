@@ -1,15 +1,34 @@
-// import Todo from "./components/Todo";
-
+//
+// import {Route, Switch} from "react-router-dom";
+// import AllMeetupsPage from "./pages/AllMeetups";
+// import NewMeetupPage from "./pages/NewMeetup";
+// import FavoritesPage from "./pages/Favorites";
+//
+// function App() {
+//   return (
+//     <div>
+//       <Switch>
+//         <Route path="/"><AllMeetupsPage/></Route>
+//         <Route path="/new-meetup"><NewMeetupPage/></Route>
+//         <Route path="/favorites"><FavoritesPage/></Route>
+//       </Switch>
+//     </div>
+//   );
+// }
+//
+// export default App;
+import {Routes, Route} from "react-router-dom";
+import AllMeetupsPage from "./pages/AllMeetups";
+import NewMeetupPage from "./pages/NewMeetup";
+import FavoritesPage from "./pages/Favorites";
 
 function App() {
   return (
-    <div>
-      {/*<h1>My todos</h1>*/}
-      {/*<Todo text="text 1"/>*/}
-      {/*<Todo text="text 2"/>*/}
-      {/*<Todo text="text 3"/>*/}
-
-    </div>
+    <Routes>
+      <Route path="/" element={<AllMeetupsPage />} />
+      <Route path="/new-meetup" element={<NewMeetupPage />} />
+      <Route path="/favorites" element={<FavoritesPage />} />
+    </Routes>
   );
 }
 
