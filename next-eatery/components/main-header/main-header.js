@@ -1,11 +1,14 @@
+
 import Link from "next/link";
 import logoImg from "@/assets/logo.png";
 import classes from "./main-header.module.css";
 import Image from "next/image";
 import MainHeaderBackground from "@/components/main-header/main-header-background";
+import NavLink from "@/components/main-header/nav-link";
+
 
 export default function MainHeader() {
-  console.log("Execute..")
+
   return (
     <>
       <MainHeaderBackground/>
@@ -18,13 +21,10 @@ export default function MainHeader() {
         <nav className={classes.nav}>
           <ul>
             <li>
-              <Link href="/meals">Browse Meals</Link>
+             <NavLink href="/meals">Browse Meals</NavLink>
             </li>
-            {/*<li>*/}
-            {/*  <Link href="../app/meals/share" style={{color: "white", textAlign: "center"}}>Share Meal</Link>*/}
-            {/*</li>*/}
-            <li>
-              <Link href="/community"> Foodies Community</Link>
+             <li>
+             <NavLink href="/community" >Foodies Community</NavLink>
             </li>
           </ul>
         </nav>
