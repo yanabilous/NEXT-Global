@@ -1,9 +1,18 @@
+import Image from "next/image";
+import classes from "./page.module.css";
+
+
 export default function MealDetailsPage() {
   return (
-    <main>
-      <h1 style={{ color: 'white', textAlign: 'center' }}>
-       MealDetailsPage
-      </h1>
-    </main>
+    <>
+      <header className={classes.header}>
+        <div className={classes.image}>
+          <Image/>
+        </div>
+      </header>
+      <main>
+
+      </main>
+    </>
   );
 }
