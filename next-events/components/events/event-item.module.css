@@ -85,12 +85,12 @@
   }
 
   .item img {
-    width: 40%;
+    width: 150px;
     height: 14rem;
   }
 
   .content {
-    width: 60%;
+    width: 30%;
     padding: 0;
     text-align: left;
   }
@@ -100,7 +100,7 @@
   }
 
   .actions {
-    flex-direction: row;
+    /*flex-direction: row;*/
     justify-content: flex-end;
   }
 }
