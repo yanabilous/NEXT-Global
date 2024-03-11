@@ -10,7 +10,7 @@ function FilteredEventsPage() {
   const router = useRouter();
 
   const filterData = router.query.slug;
-// getFilteredEvents()
+
   if (!filterData) {
     return <p className="center">Loading...</p>;
   }
