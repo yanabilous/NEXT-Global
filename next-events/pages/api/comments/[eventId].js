@@ -1,7 +1,11 @@
-import comments from "../../../components/input/comments";
+// import comments from "../../../components/input/comments";
+import {MongoClient} from "mongodb";
 
-function handler(req, res) {
+async function handler(req, res) {
   const eventId = req.query.eventId;
+
+  const client = await MongoClient.connect("mongodb+srv://yanabilous05:0HJyI2xPlMD7cce5@cluster0.txcaw1a.mongodb.net/events?retryWrites=true&w=majority&appName=Cluster0");
+
 
   if (req.method === "POST") {
     const {email, name, text} = req.body;
@@ -17,12 +21,17 @@ function handler(req, res) {
     }
 
     const newComment = {
-      id: new Date().toISOString(),
+      // id: new Date().toISOString(),
       email,
       name,
-      text
+      text,
+      eventId
     };
-    console.log(newComment);
+
+    const db = client.db();
+    const result = await db.collection("comments").insertOne({newComment});
+    console.log(result);
+    newComment.id = result.insertedId;
     res.status(201).json({message: "Added comment.", comment: newComment});
 
   }
@@ -34,6 +43,7 @@ function handler(req, res) {
 
     res.status(200).json({comments: dummyList});
   }
+  client.close();
 }
 
 export default handler;
