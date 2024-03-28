@@ -21,9 +21,9 @@ export function NotificationContextProvider(props) {
   const context = {notification: activeNotification, showNotification: showNotificationHandler, hideNotification: hideNotificationHandler}
 
   return (
-    <NotificationContextProvider value={context}>
+    <NotificationContext.Provider value={context}>
       {props.children}
-    </NotificationContextProvider>
+    </NotificationContext.Provider>
   );
 }
 
