@@ -1,10 +1,8 @@
 
-
+import classes from "./logo.module.css";
 
 function Logo() {
-  return <header>
-
-  </header>;
+  return <div className={classes.logo}> Yana' Next Blog </div>;
 
 }
 
