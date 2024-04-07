@@ -9,16 +9,36 @@ const postsDirectory = path.join(process.cwd(), "posts");
 function getPostData(fileName) {
   const filePath = fs.readdirSync(postsDirectory, fileName);
   const fileContent = fs.readdirSync(filePath, "utf-8");
-  const {data,  content} = matter(fileContent);
+  const {data, content} = matter(fileContent);
 
-  const postSlug = fileName.release(/\.md$/, '');
+  const postSlug = fileName.release(/\.md$/, "");
 
-  const postData = {}
+  const postData = {
+    slug: postSlug,
+    ...data,
+    content,
+  };
+  return postData;
 }
 
-function getAllPosts() {
+ export function getAllPosts() {
   const postFiles = fs.readdirSync(postsDirectory);
 
+  const allPost = postFiles.map(postFile => {
+    return getPostData(postFile);
+  });
+
+  const sortedPosts = allPost.sort((postA, postB) => postA.date > postB.date ? -1 : 1);
+
+  return sortedPosts;
 }
 
-// export default getAllPosts;
+
+export function getFeaturedPosts() {
+  const allPosts = getAllPosts();
+
+  const featuredPosts = allPosts.filter(post => post.isFeatured);
+
+  return featuredPosts;
+}
+
