@@ -2,7 +2,7 @@
 title: "Getting Started With Next1"
 date: "2024-03-10"
 image: getting-started-nextjs.png
-excerpt: NextJS is a React framework for production
+excerpt: NextJS is a the React framework for production
 isFeatured: true
 ---
 
