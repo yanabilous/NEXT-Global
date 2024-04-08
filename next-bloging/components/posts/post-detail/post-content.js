@@ -1,29 +1,53 @@
-import ReactMarkdown from "react-markdown"
+import React from "react";
+import ReactMarkdown from "react-markdown";
 import PostHeader from "./post-header";
-
-import classes from "./post-content.module.css"
-
-const DUMMY_POSTS =
-  {
-    slug: "getting-started-with-nextjs",
-    title: "Getting Started With Next1",
-    image: "getting-started-nextjs.png",
-    date: "2024-03-10",
-    content: " # This is a first post"
-  };
-
-
+import classes from "./post-content.module.css";
+import Image from "next/image";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 function PostContent(props) {
-  const imagePath = `/images/posts/${DUMMY_POSTS.slug}/${DUMMY_POSTS.image}`;
+  const { post } = props;
+  const imagePath = `/images/posts/${post.slug}/${post.image}`;
+
+  const customRenderers = {
+    p(paragraph) {
+      const { node } = paragraph;
+
+      if (node.children[0].tagName === "img") {
+        const image = node.children[0];
+
+        return (
+          <div className={classes.image}>
+            <Image
+              src={`/images/posts/${post.slug}/${image.properties.src}`}
+              alt={image.alt || "Alternative text"}
+              width={600}
+              height={300}
+            />
+          </div>
+        );
+      }
+
+      return <p>{paragraph.children}</p>;
+    },
+    code(code) {
+      const { className, children } = code;
+      const language = className.split("-")[1];
+      return (
+        <SyntaxHighlighter style={atomDark} language={language}>
+          {children}
+        </SyntaxHighlighter>
+      );
+    },
+  };
 
   return (
     <article className={classes.content}>
-      <PostHeader title={DUMMY_POSTS.title} image={imagePath}/>
-      <ReactMarkdown>{DUMMY_POSTS.content}</ReactMarkdown>
+      <PostHeader title={post.title} image={imagePath} />
+      <ReactMarkdown components={customRenderers}>{post.content}</ReactMarkdown>
     </article>
   );
-
 }
 
 export default PostContent;
