@@ -1,6 +1,6 @@
 import ContactForm from "../components/contact/contact-form";
 
-function ContactPage() {
+function ContactPage(props) {
   return <ContactForm/>;
 }
 
