@@ -1,21 +1,21 @@
 import classes from "./contact-form.module.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Notification from "../../ui/notification";
 
 
 async function sendContactData(contactDetails) {
-  const response = await fetch('/api/contact', {
-    method: 'POST',
+  const response = await fetch("/api/contact", {
+    method: "POST",
     body: JSON.stringify(contactDetails),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong!');
+    throw new Error(data.message || "Something went wrong!");
   }
 }
 
@@ -28,6 +28,16 @@ function ContactForm() {
   const [requestStatus, setRequestStatus] = useState();
   const [requestError, setRequestError] = useState();
 
+  useEffect(() => {
+    if (requestStatus === "success" || requestStatus === "error") {
+      const timer = setTimeout(() => {
+        setRequestStatus(null);
+        setRequestError(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [requestStatus]);
+
   async function sendMessageHandler(event) {
     event.preventDefault();
 
@@ -39,6 +49,9 @@ function ContactForm() {
         message: enteredMessage
       });
       setRequestStatus("success");
+      setEnteredMessage("");
+      setEnteredName("");
+      setEnteredEmail("");
     } catch (error) {
       setRequestError(error.message);
       setRequestStatus("error");
