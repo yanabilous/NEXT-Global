@@ -20,6 +20,8 @@ async function handler(req, res) {
       message
     };
     let client;
+
+    const connectionString = `mongodb+srv://`
     try {
 
       client = await MongoClient.connect(
