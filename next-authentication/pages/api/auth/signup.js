@@ -25,7 +25,7 @@ async function handler() {
     email: email,
     password: hashedPassword
   });
-  res.status(201).json({message: "Created user!"})
+  res.status(201).json({message: "Created user!"});
 }
 
 export default handler;
