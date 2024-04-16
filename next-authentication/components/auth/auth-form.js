@@ -28,23 +28,29 @@ function AuthForm() {
     setIsLogin((prevState) => !prevState);
   }
 
-  function submitHandler(event) {
+  async function submitHandler(event) {
     event.preventDefault();
 
-    const enteredEmail = emailInputRef.current.value()
-    const enteredPassword = passwordInputRef.current.value()
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
 
     if (isLogin) {
 
     } else {
-      createUser();
+      try {
+        const result = await createUser(enteredEmail, enteredPassword);
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+
     }
   }
 
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
           <input type="email" id="email" required ref={emailInputRef}/>
